@@ -22,8 +22,10 @@ export default function HiraganaFlashCardPage() {
           );
         })}
       </div>
-      <div className="mt-10 text-[#b0b0b0] text-xs">
-        카드를 클릭하면 정답이 나와요!
+      <div className="mt-10 text-[#b0b0b0] text-xs text-center">
+        이 사이트는 데이터를 수집하지 않고
+        <br />
+        수익을 줍지도 않아요 😅
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { DotLottieReact } from "@/lib/dotlottie";
-import BackButton from "@/components/BackButton";
 
 const AllDoneCard = () => {
   return (
@@ -18,7 +17,6 @@ const AllDoneCard = () => {
         </div>
         <div className="text-[#b0b0b0] text-xs mb-4">모든 카드를 맞췄어요!</div>
       </div>
-      <BackButton className="mt-6" />
     </div>
   );
 };
