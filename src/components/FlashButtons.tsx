@@ -40,9 +40,10 @@ const FlashButtons = ({ card, onNext }: FlashButtonType) => {
             type="button"
             onClick={() => handleClick(c.romaji)}
             key={c.char}
-            className="w-[calc((220px/3)-5.3px)] aspect-[1/1.1] bg-white rounded-2xl shadow-xl flex items-center justify-center text-xl font-bold cursor-pointer select-none relative transition-colors duration-200 border border-[#e5e5e5] text-gray-500"
+            className="w-[calc((220px/3)-5.3px)] flex-col aspect-[1/1.1] bg-white rounded-2xl shadow-xl flex items-center justify-center text-xl font-bold cursor-pointer select-none relative transition-colors duration-200 border border-[#e5e5e5] text-gray-500"
           >
-            {c.romaji}
+            <span>{c.romaji}</span>
+            <span className="text-xs text-gray-400">{c.kor}</span>
           </button>
         );
       })}
