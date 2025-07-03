@@ -8,6 +8,7 @@ import { HIRAGANAS } from "@/constants/hiragana";
 import { KATAKANAS } from "@/constants/katakana";
 import { MENUS } from "@/constants/menu";
 import AllDoneCard from "@/components/AllDoneCard";
+import { CONFUSING } from "@/constants/confusing";
 
 const FlashCardPage = () => {
   const params = useParams();
@@ -15,6 +16,7 @@ const FlashCardPage = () => {
   let data;
   if (id === "hiragana") data = HIRAGANAS;
   if (id === "katakana") data = KATAKANAS;
+  if (id === "confusing") data = CONFUSING;
 
   const { card, next, prev, shuffle, progress, total } = useFlashCard(
     data || []
@@ -33,7 +35,7 @@ const FlashCardPage = () => {
       ) : (
         <>
           <FlashCardComponent card={card} />
-          <FlashButtons card={card} onNext={next} />
+          <FlashButtons card={card} onNext={next} data={data || []} />
         </>
       )}
       {/* <FlashCardController
