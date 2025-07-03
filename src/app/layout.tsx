@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description: "해보세요",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://flash-cards-lang.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "일본어 문자 플래시카드 - 히라가나, 가타카나 학습",
@@ -58,11 +58,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@flashlanguage",
-    creator: "@flashlanguage",
+    site: "@flash-cards-lang",
+    creator: "@flash-cards-lang",
     title: "일본어 문자 플래시카드 - 히라가나, 가타카나 학습",
     description: "해보세요",
-    images: ["/og-image.jpg"],
+    images: ["https://flash-cards-lang.vercel.app/og-image.jpg"],
   },
   robots: {
     index: true,
