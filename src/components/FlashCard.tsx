@@ -5,7 +5,7 @@ import type { FC } from "react";
 export type FlashCardProps = {
   card: HiraganaCard;
   isFlipped: boolean;
-  onFlip: () => void;
+  flip: () => void;
 };
 
 const cardVariants = {
@@ -18,7 +18,7 @@ const cardStyle =
 const backStyle =
   "absolute inset-0 flex items-center justify-center text-3xl text-[#888] bg-[#f9f9fa] rounded-2xl";
 
-const FlashCard: FC<FlashCardProps> = ({ card, isFlipped, onFlip }) => {
+const FlashCard: FC<FlashCardProps> = ({ card, isFlipped, flip }) => {
   return (
     <div className="perspective-[1200px]">
       <motion.div
@@ -27,7 +27,7 @@ const FlashCard: FC<FlashCardProps> = ({ card, isFlipped, onFlip }) => {
         animate={isFlipped ? "back" : "front"}
         variants={cardVariants}
         transition={{ duration: 0.5, ease: [0.4, 0.2, 0.2, 1] }}
-        onClick={onFlip}
+        onClick={flip}
       >
         {/* 앞면 */}
         <div

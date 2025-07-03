@@ -15,6 +15,11 @@ export const HIRAGANA_CARDS: HiraganaCard[] = [
   { char: "く", romaji: "ku", group: "ka" },
   { char: "け", romaji: "ke", group: "ka" },
   { char: "こ", romaji: "ko", group: "ka" },
+  { char: "さ", romaji: "sa", group: "sa" },
+  { char: "し", romaji: "shi", group: "sa" },
+  { char: "す", romaji: "su", group: "sa" },
+  { char: "せ", romaji: "se", group: "sa" },
+  { char: "そ", romaji: "so", group: "sa" },
 ];
 
 export type { HiraganaCard };

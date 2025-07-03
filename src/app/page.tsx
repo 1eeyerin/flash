@@ -1,19 +1,20 @@
 "use client";
 
-import FlashCard from "../components/FlashCard";
+import FlashButton from "@/components/FlashButton";
 import FlashCardController from "../components/FlashCardController";
 import { useFlashCard } from "../hooks/useFlashCard";
+import FlashCardComponent from "@/components/FlashCardComponent";
 
 export default function HiraganaFlashCardPage() {
-  const { card, isFlipped, next, prev, flip, shuffle, progress } =
-    useFlashCard();
+  const { card, next, prev, shuffle, progress } = useFlashCard();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f9f9fa]">
       <h1 className="text-2xl font-bold mb-8 mt-8 text-[#212121] tracking-tight">
         히라가나 플래시카드
       </h1>
-      <FlashCard card={card} isFlipped={isFlipped} onFlip={flip} />
+      <FlashCardComponent card={card} />
+      <FlashButton card={card} />
       <FlashCardController
         onPrev={prev}
         onNext={next}
