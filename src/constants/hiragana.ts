@@ -1,10 +1,6 @@
-type HiraganaCard = {
-  char: string;
-  romaji: string;
-  group: string;
-};
+import { Card } from "./card";
 
-export const HIRAGANA_CARDS: HiraganaCard[] = [
+export const HIRAGANAS: Card[] = [
   { char: "あ", romaji: "a", group: "a" },
   { char: "い", romaji: "i", group: "a" },
   { char: "う", romaji: "u", group: "a" },
@@ -20,6 +16,35 @@ export const HIRAGANA_CARDS: HiraganaCard[] = [
   { char: "す", romaji: "su", group: "sa" },
   { char: "せ", romaji: "se", group: "sa" },
   { char: "そ", romaji: "so", group: "sa" },
+  { char: "た", romaji: "ta", group: "ta" },
+  { char: "ち", romaji: "chi", group: "ta" },
+  { char: "つ", romaji: "tsu", group: "ta" },
+  { char: "て", romaji: "te", group: "ta" },
+  { char: "と", romaji: "to", group: "ta" },
+  { char: "な", romaji: "na", group: "na" },
+  { char: "に", romaji: "ni", group: "na" },
+  { char: "ぬ", romaji: "nu", group: "na" },
+  { char: "ね", romaji: "ne", group: "na" },
+  { char: "の", romaji: "no", group: "na" },
+  { char: "は", romaji: "ha", group: "ha" },
+  { char: "ひ", romaji: "hi", group: "ha" },
+  { char: "ふ", romaji: "fu", group: "ha" },
+  { char: "へ", romaji: "he", group: "ha" },
+  { char: "ほ", romaji: "ho", group: "ha" },
+  { char: "ま", romaji: "ma", group: "ma" },
+  { char: "み", romaji: "mi", group: "ma" },
+  { char: "む", romaji: "mu", group: "ma" },
+  { char: "め", romaji: "me", group: "ma" },
+  { char: "も", romaji: "mo", group: "ma" },
+  { char: "や", romaji: "ya", group: "ya" },
+  { char: "ゆ", romaji: "yu", group: "ya" },
+  { char: "よ", romaji: "yo", group: "ya" },
+  { char: "ら", romaji: "ra", group: "ra" },
+  { char: "り", romaji: "ri", group: "ra" },
+  { char: "る", romaji: "ru", group: "ra" },
+  { char: "れ", romaji: "re", group: "ra" },
+  { char: "ろ", romaji: "ro", group: "ra" },
+  { char: "わ", romaji: "wa", group: "wa" },
+  { char: "を", romaji: "wo", group: "wa" },
+  { char: "ん", romaji: "n", group: "n" },
 ];
-
-export type { HiraganaCard };

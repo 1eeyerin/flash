@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import FlashCard from "./FlashCard";
-import { HiraganaCard } from "@/constants/hiragana";
+import { Card } from "@/constants/card";
 
 type FlashCardComponent = {
-  card: HiraganaCard;
+  card: Card;
 };
 
 const FlashCardComponent = ({ card }: FlashCardComponent) => {

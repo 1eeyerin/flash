@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { HIRAGANA_CARDS, HiraganaCard } from "../constants/hiragana";
+import { Card } from "@/constants/card";
 
 export type FlashCardState = {
   currentIndex: number;
-  cards: HiraganaCard[];
+  cards: Card[];
 };
 
-const INITIAL_STATE: FlashCardState = {
-  currentIndex: Math.floor(Math.random() * HIRAGANA_CARDS.length),
-  cards: HIRAGANA_CARDS,
-};
 
-export const useFlashCard = () => {
-  const [state, setState] = useState<FlashCardState>(INITIAL_STATE);
+export const useFlashCard = (data: Card[]) => {
+  const [state, setState] = useState<FlashCardState>(() => {
+    return {
+      currentIndex: Math.floor(Math.random() * data.length),
+      cards: data,
+    };
+  });
 
   const next = () => {
     setState((s) => {

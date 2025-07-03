@@ -1,14 +1,15 @@
 "use client";
 
-import { HIRAGANA_CARDS, HiraganaCard } from "@/constants/hiragana";
+import { Card } from "@/constants/card";
+import { HIRAGANAS } from "@/constants/hiragana";
 
 type FlashButtonType = {
-  card: HiraganaCard;
+  card: Card;
   onNext: () => void;
 };
 
 const FlashButtons = ({ card, onNext }: FlashButtonType) => {
-  const sameGroupCards = HIRAGANA_CARDS.filter((w) => {
+  const sameGroupCards = HIRAGANAS.filter((w) => {
     if (card.romaji === w.romaji) return;
     if (card.group !== w.group) return;
 

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import type { HiraganaCard } from "../constants/hiragana";
+import type { Card } from "../constants/card";
 import type { FC } from "react";
 
 export type FlashCardProps = {
-  card: HiraganaCard;
+  card: Card;
   isFlipped: boolean;
   flip: () => void;
 };
