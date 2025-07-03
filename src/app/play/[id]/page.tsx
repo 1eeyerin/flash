@@ -25,7 +25,7 @@ const FlashCardPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f9f9fa]">
-      <h1 className="text-2xl font-bold mb-8 mt-8 text-[#212121] tracking-tight">
+      <h1 className="text-xl font-bold mb-6 mt-10 text-[#212121] tracking-tight">
         {category?.kor || ""} 플래시카드
       </h1>
       {isAllDone ? (
