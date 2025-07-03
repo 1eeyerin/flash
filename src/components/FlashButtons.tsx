@@ -1,16 +1,16 @@
 "use client";
 
 import { Card } from "@/constants/card";
-import { HIRAGANAS } from "@/constants/hiragana";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 type FlashButtonType = {
   card: Card;
   onNext: () => void;
+  data: Card[];
 };
 
-const FlashButtons = ({ card, onNext }: FlashButtonType) => {
+const FlashButtons = ({ card, onNext, data }: FlashButtonType) => {
   const [selectedRomaji, setSelectedRomaji] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [shakeRomaji, setShakeRomaji] = useState<string | null>(null);
@@ -30,21 +30,35 @@ const FlashButtons = ({ card, onNext }: FlashButtonType) => {
   };
 
   useEffect(() => {
-    const sameGroupCards = HIRAGANAS.filter((w) => {
-      if (card.romaji === w.romaji) return;
-      if (card.group !== w.group) return;
-      return w.romaji;
-    });
-    const cards = sameGroupCards
+    // 1. 같은 그룹, 본인 제외
+    const sameGroupCards = data.filter(
+      (w) => card.group === w.group && card.romaji !== w.romaji
+    );
+
+    //TODO: 다시 해결방안 생각해보기
+    // 2. romaji 기준으로 중복 제거
+    const uniqueRomajiCards: Card[] = [];
+    const seenRomaji = new Set<string>();
+
+    for (const c of sameGroupCards) {
+      if (!seenRomaji.has(c.romaji)) {
+        uniqueRomajiCards.push(c);
+        seenRomaji.add(c.romaji);
+      }
+    }
+
+    // 3. 랜덤 2개 + 정답 카드
+    const cards = uniqueRomajiCards
       .sort(() => Math.random() - 0.5)
       .slice(0, 2)
       .concat(card)
       .sort(() => Math.random() - 0.5);
+
     setRandomCards(cards);
     setSelectedRomaji(null);
     setIsCorrect(null);
     setShakeRomaji(null);
-  }, [card]);
+  }, [card, data]);
 
   useEffect(() => {
     if (isCorrect) {
