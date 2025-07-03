@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { HIRAGANAS } from "@/constants/hiragana";
 import { KATAKANAS } from "@/constants/katakana";
 import { MENUS } from "@/constants/menu";
+import AllDoneCard from "@/components/AllDoneCard";
 
 const FlashCardPage = () => {
   const params = useParams();
@@ -15,16 +16,26 @@ const FlashCardPage = () => {
   if (id === "hiragana") data = HIRAGANAS;
   if (id === "katakana") data = KATAKANAS;
 
-  const { card, next, prev, shuffle, progress } = useFlashCard(data || []);
+  const { card, next, prev, shuffle, progress, total } = useFlashCard(
+    data || []
+  );
   const category = MENUS.find(({ type }) => id === type);
+
+  const isAllDone = total === 0;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#f9f9fa]">
       <h1 className="text-2xl font-bold mb-8 mt-8 text-[#212121] tracking-tight">
         {category?.kor || ""} 플래시카드
       </h1>
-      <FlashCardComponent card={card} />
-      <FlashButtons card={card} onNext={next} />
+      {isAllDone ? (
+        <AllDoneCard />
+      ) : (
+        <>
+          <FlashCardComponent card={card} />
+          <FlashButtons card={card} onNext={next} />
+        </>
+      )}
       {/* <FlashCardController
         onPrev={prev}
         onNext={next}

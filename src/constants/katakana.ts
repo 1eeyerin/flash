@@ -46,5 +46,5 @@ export const KATAKANAS: Card[] = [
   { char: "ロ", romaji: "ro", kor: "로", group: "ra" },
   { char: "ワ", romaji: "wa", kor: "와", group: "wa" },
   { char: "ヲ", romaji: "wo", kor: "오", group: "wa" },
-  { char: "ン", romaji: "n", kor: "응", group: "n" },
+  { char: "ン", romaji: "n", kor: "응", group: "wa" },
 ];
