@@ -9,7 +9,7 @@ export type FlashCardState = {
 };
 
 const INITIAL_STATE: FlashCardState = {
-  currentIndex: 0,
+  currentIndex: Math.floor(Math.random() * HIRAGANA_CARDS.length),
   cards: HIRAGANA_CARDS,
 };
 
@@ -17,11 +17,14 @@ export const useFlashCard = () => {
   const [state, setState] = useState<FlashCardState>(INITIAL_STATE);
 
   const next = () => {
-    setState((s) => ({
-      ...s,
-      currentIndex:
-        s.currentIndex < s.cards.length - 1 ? s.currentIndex + 1 : 0,
-    }));
+    setState((s) => {
+      const newCards = s.cards.filter((_, index) => index !== s.currentIndex);
+
+      return {
+        cards: newCards,
+        currentIndex: Math.floor(Math.random() * newCards.length),
+      };
+    });
   };
 
   const prev = () => {
