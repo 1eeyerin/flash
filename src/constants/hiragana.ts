@@ -46,5 +46,5 @@ export const HIRAGANAS: Card[] = [
   { char: "ろ", romaji: "ro", kor: "로", group: "ra" },
   { char: "わ", romaji: "wa", kor: "와", group: "wa" },
   { char: "を", romaji: "wo", kor: "오", group: "wa" },
-  { char: "ん", romaji: "n", kor: "응", group: "n" },
+  { char: "ん", romaji: "n", kor: "응", group: "wa" },
 ];
