@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import TopBar from "@/components/TopBar";
 
-const PlayLayout = ({ children }: { children: ReactNode }) => {
+const MessageLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="relative min-h-screen bg-[#f9f9fa]">
       <TopBar />
@@ -12,4 +12,4 @@ const PlayLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default PlayLayout;
+export default MessageLayout;
