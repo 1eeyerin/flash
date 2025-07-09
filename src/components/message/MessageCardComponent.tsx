@@ -5,7 +5,6 @@ import { MessageCard } from "@/constants/message";
 
 type MessageCardComponentProps = {
   card: MessageCard;
-  onAnswerSelected: () => void;
   onNext: () => void;
   progress: number;
   total: number;
@@ -13,33 +12,31 @@ type MessageCardComponentProps = {
 
 const MessageCardComponent = ({
   card,
-  onAnswerSelected,
   onNext,
   progress,
   total,
 }: MessageCardComponentProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [showAnswer, setShowAnswer] = useState(false);
 
   const handleOptionClick = (option: string) => {
-    if (selectedAnswer !== null) return; // 이미 답을 선택했으면 무시
+    //if (selectedAnswer !== null) return; // 이미 답을 선택했으면 무시
 
     setSelectedAnswer(option);
     const correct = option === card.correct;
     setIsCorrect(correct);
 
-    if (correct) {
-      setTimeout(() => {
-        setShowAnswer(true);
-        onAnswerSelected();
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        setShowAnswer(true);
-        onAnswerSelected();
-      }, 2000);
-    }
+    // if (correct) {
+    //   setTimeout(() => {
+    //     setShowAnswer(true);
+    //     onAnswerSelected();
+    //   }, 1000);
+    // } else {
+    //   setTimeout(() => {
+    //     setShowAnswer(true);
+    //     onAnswerSelected();
+    //   }, 2000);
+    // }
   };
 
   const renderSentence = () => {
@@ -79,7 +76,7 @@ const MessageCardComponent = ({
             <button
               key={index}
               onClick={() => handleOptionClick(option)}
-              disabled={selectedAnswer !== null}
+              disabled={!!isCorrect}
               className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
                 selectedAnswer === null
                   ? "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
@@ -87,9 +84,11 @@ const MessageCardComponent = ({
                   ? option === card.correct
                     ? "border-green-500 bg-green-50 text-green-700"
                     : "border-red-500 bg-red-50 text-red-700"
-                  : option === card.correct && showAnswer
+                  : isCorrect && option === card.correct
                   ? "border-green-500 bg-green-50 text-green-700"
-                  : "border-gray-200 bg-gray-50 text-gray-500"
+                  : isCorrect
+                  ? "border-gray-200 bg-gray-50 text-gray-500"
+                  : "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
               }`}
             >
               <div className="flex flex-col">
@@ -103,7 +102,7 @@ const MessageCardComponent = ({
         </div>
 
         {/* 결과 표시 */}
-        {selectedAnswer !== null && (
+        {isCorrect && (
           <button
             onClick={onNext}
             disabled={progress >= total}
