@@ -37,7 +37,13 @@ const MessageCardComponent = ({
     return (
       <div className="text-center">
         <span className="text-lg">{parts[0]}</span>
-        <span className="text-lg font-bold text-blue-600 mx-2">___</span>
+        {isCorrect ? (
+          <span className="text-lg font-bold text-green-600 mx-2">
+            {card.correct}
+          </span>
+        ) : (
+          <span className="text-lg font-bold text-blue-600 mx-2">___</span>
+        )}
         <span className="text-lg">{parts[1] || ""}</span>
       </div>
     );
@@ -85,8 +91,25 @@ const MessageCardComponent = ({
             {renderKorSentence()}
           </div>
           <div className="text-xs text-gray-400 text-center italic flex items-center justify-center gap-1">
-            {card.pronunciation}
-            <PronunciationButton pronunciation={card.sentence} />
+            {(() => {
+              if (isCorrect) {
+                const correctPronunciation =
+                  card.options.find((opt) => opt.value === card.correct)
+                    ?.pronunciation || card.correct;
+                return card.pronunciation.replace(
+                  card.blank,
+                  correctPronunciation
+                );
+              }
+              return card.pronunciation;
+            })()}
+            <PronunciationButton
+              pronunciation={
+                isCorrect
+                  ? card.sentence.replace(card.blank, card.correct)
+                  : card.sentence
+              }
+            />
           </div>
         </div>
 
