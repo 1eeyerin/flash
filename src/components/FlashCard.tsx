@@ -31,7 +31,7 @@ const FlashCard: FC<FlashCardProps> = ({ card, isFlipped, flip }) => {
       >
         {/* 앞면 */}
         <div
-          className="flex items-center justify-center w-full h-full"
+          className="flex items-center justify-center w-full h-full text-gray-900"
           style={{ backfaceVisibility: "hidden" }}
         >
           {card.char}
