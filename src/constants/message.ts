@@ -16,19 +16,6 @@ export interface MessageCard {
 }
 
 export const MESSAGE_CARDS: MessageCard[] = [
-  // {
-  //   id: 1,
-  //   sentence: "おはようございます。今日は___ですね。",
-  //   blank: "___",
-  //   options: [
-  //     { value: "いい", pronunciation: "ii", kor: "좋은" },
-  //     { value: "わるい", pronunciation: "warui", kor: "나쁜" },
-  //     { value: "あつい", pronunciation: "atsui", kor: "더운" },
-  //   ],
-  //   correct: "いい",
-  //   kor: "좋은 아침입니다. 오늘은 좋은 날씨네요.",
-  //   pronunciation: "Ohayou gozaimasu. Kyou wa ___ desu ne.",
-  // },
   {
     id: 2,
     sentence: "なんか遠距離恋愛したら___感じなんやね。",
@@ -241,20 +228,6 @@ export const MESSAGE_CARDS: MessageCard[] = [
   },
   {
     id: 17,
-    sentence: "見えるか見えないかの___ぐらい",
-    blank: "___",
-    blankKor: "사이",
-    options: [
-      { value: "間", pronunciation: "aida", kor: "사이" },
-      { value: "外", pronunciation: "soto", kor: "밖" },
-      { value: "中", pronunciation: "naka", kor: "안" },
-    ],
-    correct: "間",
-    kor: "보일 듯 말 듯 그 사이 정도",
-    pronunciation: "Mieru ka mienai ka no ___ gurai",
-  },
-  {
-    id: 18,
     sentence: "え、___めっちゃ高校生だ！",
     blank: "___",
     blankKor: "잠깐만",
@@ -266,5 +239,76 @@ export const MESSAGE_CARDS: MessageCard[] = [
     correct: "待って",
     kor: "어, 잠깐만 엄청 고등학생 같아!",
     pronunciation: "E, ___ meccha koukousei da!",
+  },
+  {
+    id: 18,
+    sentence: "夜空に輝く想い___かな",
+    blank: "___",
+    blankKor: "이루어질",
+    options: [
+      { value: "叶う", pronunciation: "kanau", kor: "이루어지다" },
+      { value: "光る", pronunciation: "hikaru", kor: "빛나다" },
+      { value: "願う", pronunciation: "negau", kor: "바라다" },
+    ],
+    correct: "叶う",
+    kor: "밤하늘에 반짝이는 마음 이루어질까",
+    pronunciation: "Yozora ni kagayaku omoi ___ kana",
+  },
+  {
+    id: 19,
+    sentence: "ぼくの大切な人たちがしあわせに ___ ように。",
+    blank: "___",
+    blankKor: "지낼 수 있기를",
+    options: [
+      { value: "すごせます", pronunciation: "sugosemasu", kor: "지낼 수 있다" },
+      { value: "いきます", pronunciation: "ikimasu", kor: "살다/가다" },
+      { value: "たべます", pronunciation: "tabemasu", kor: "먹다" },
+    ],
+    correct: "すごせます",
+    kor: "내 소중한 사람들이 행복하게 지낼 수 있기를.",
+    pronunciation: "Boku no taisetsu na hitotachi ga shiawase ni ___ you ni.",
+  },
+  {
+    id: 20,
+    sentence: "僕は寝る前にアロマオイルを耳の裏に___寝ます。",
+    blank: "___",
+    blankKor: "바르고",
+    options: [
+      { value: "塗って", pronunciation: "nutte", kor: "바르고" },
+      { value: "聞いて", pronunciation: "kiite", kor: "듣고" },
+      { value: "食べて", pronunciation: "tabete", kor: "먹고" },
+    ],
+    correct: "塗って",
+    kor: "저는 자기 전에 아로마 오일을 귀 뒤에 바르고 잡니다.",
+    pronunciation:
+      "Boku wa neru mae ni aroma oiru o mimi no ura ni ___ nemasu.",
+  },
+  {
+    id: 21,
+    sentence: "キムさんも一緒に___行きます？",
+    blank: "___",
+    blankKor: "먹으러",
+    options: [
+      { value: "食べに", pronunciation: "tabe ni", kor: "먹으러" },
+      { value: "遊びに", pronunciation: "asobi ni", kor: "놀러" },
+      { value: "帰りに", pronunciation: "kaeri ni", kor: "돌아가러" },
+    ],
+    correct: "食べに",
+    kor: "김 씨도 같이 먹으러 갈래요?",
+    pronunciation: "Kimu-san mo issho ni ___ ikimasu?",
+  },
+  {
+    id: 22,
+    sentence: "けど、___ですね",
+    blank: "___",
+    blankKor: "어렵다",
+    options: [
+      { value: "難しい", pronunciation: "muzukashii", kor: "어렵다" },
+      { value: "楽しい", pronunciation: "tanoshii", kor: "즐겁다" },
+      { value: "優しい", pronunciation: "yasashii", kor: "친절하다/상냥하다" },
+    ],
+    correct: "難しい",
+    kor: "근데 어렵네요...",
+    pronunciation: "Kedo, ___ desu ne",
   },
 ];
