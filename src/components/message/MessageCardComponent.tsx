@@ -38,6 +38,19 @@ const MessageCardComponent = ({
     );
   };
 
+  const renderKorSentence = () => {
+    const { kor, blankKor } = card;
+    if (!blankKor || !kor.includes(blankKor)) return <span>{kor}</span>;
+    const parts = kor.split(blankKor);
+    return (
+      <span>
+        {parts[0]}
+        <span className="font-bold text-blue-600 mx-1">{blankKor}</span>
+        {parts[1] || ""}
+      </span>
+    );
+  };
+
   useEffect(() => {
     setSelectedIdx(null);
     setIsCorrect(null);
@@ -67,7 +80,7 @@ const MessageCardComponent = ({
             {renderSentence()}
           </div>
           <div className="text-sm text-gray-500 text-center mb-2">
-            {card.kor}
+            {renderKorSentence()}
           </div>
           <div className="text-xs text-gray-400 text-center italic flex items-center justify-center gap-1">
             {card.pronunciation}
