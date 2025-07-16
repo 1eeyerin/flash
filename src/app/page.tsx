@@ -10,7 +10,8 @@ export default function HiraganaFlashCardPage() {
         플래시카드
       </h1>
       <div className="flex flex-col gap-2">
-        {MENUS.map((menu) => {
+        {MENUS.map((menu, idx) => {
+          const isLast = idx === MENUS.length - 1;
           return (
             <Link
               href={menu.url}
@@ -18,6 +19,14 @@ export default function HiraganaFlashCardPage() {
               className="w-[220px] py-4 bg-white rounded-2xl shadow-xl flex items-center justify-center text-md font-bold cursor-pointer select-none relative transition-colors duration-200 border border-[#e5e5e5]"
             >
               {menu.kor}
+              {isLast && (
+                <span
+                  className="absolute right-[-5px] top-[-1px] px-[4px] py-[2px] rounded-md bg-red-500 text-white text-[10px] font-bold align-middle"
+                  style={{ lineHeight: "1.2" }}
+                >
+                  N
+                </span>
+              )}
             </Link>
           );
         })}

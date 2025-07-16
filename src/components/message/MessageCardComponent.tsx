@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import type { MessageCard } from "@/constants/message";
 import PronunciationButton from "./PronunciationButton";
+import { getPollyTTSUrl } from "@/lib/pollyTTS";
 
 type MessageCardComponentProps = {
   card: MessageCard;
@@ -22,6 +23,10 @@ const MessageCardComponent = ({
   const prevIsCorrect = useRef<boolean | null>(null);
 
   const handleOptionClick = (idx: number) => {
+    if (isCorrect) {
+      return;
+    }
+
     setSelectedIdx(idx);
     const correct = card.options[idx].value === card.correct;
     setIsCorrect(correct);
@@ -32,7 +37,13 @@ const MessageCardComponent = ({
     return (
       <div className="text-center">
         <span className="text-lg">{parts[0]}</span>
-        <span className="text-lg font-bold text-blue-600 mx-2">___</span>
+        {isCorrect ? (
+          <span className="text-lg font-bold text-green-600 mx-2">
+            {card.correct}
+          </span>
+        ) : (
+          <span className="text-lg font-bold text-blue-600 mx-2">___</span>
+        )}
         <span className="text-lg">{parts[1] || ""}</span>
       </div>
     );
@@ -58,15 +69,12 @@ const MessageCardComponent = ({
 
   useEffect(() => {
     if (!prevIsCorrect.current && isCorrect) {
-      // 정답을 맞춘 순간에만 소리 재생
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new window.SpeechSynthesisUtterance(card.correct);
-        utterance.lang = "ja-JP";
-        utterance.rate = 0.8;
-        utterance.pitch = 1;
-        window.speechSynthesis.speak(utterance);
-      }
+      // 정답을 맞춘 순간에만 소리 재생 (Amazon Polly)
+      (async () => {
+        const url = await getPollyTTSUrl(card.correct, "ja-JP");
+        if (!url) return;
+        new Audio(url).play();
+      })();
     }
     prevIsCorrect.current = isCorrect;
   }, [isCorrect, card.correct]);
@@ -83,19 +91,35 @@ const MessageCardComponent = ({
             {renderKorSentence()}
           </div>
           <div className="text-xs text-gray-400 text-center italic flex items-center justify-center gap-1">
-            {card.pronunciation}
-            <PronunciationButton pronunciation={card.sentence} />
+            {(() => {
+              if (isCorrect) {
+                const correctPronunciation =
+                  card.options.find((opt) => opt.value === card.correct)
+                    ?.pronunciation || card.correct;
+                return card.pronunciation.replace(
+                  card.blank,
+                  correctPronunciation
+                );
+              }
+              return card.pronunciation;
+            })()}
+            <PronunciationButton
+              pronunciation={
+                isCorrect
+                  ? card.sentence.replace(card.blank, card.correct)
+                  : card.sentence
+              }
+            />
           </div>
         </div>
 
         {/* 선택지 */}
         <div className="space-y-3">
           {card.options.map((option, idx) => (
-            <button
+            <div
               key={option.value}
               onClick={() => handleOptionClick(idx)}
-              disabled={isCorrect === true}
-              className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+              className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left cursor-pointer ${
                 selectedIdx === null
                   ? "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                   : selectedIdx === idx
@@ -124,7 +148,7 @@ const MessageCardComponent = ({
                   </div>
                 )}
               </div>
-            </button>
+            </div>
           ))}
         </div>
 

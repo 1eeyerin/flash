@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { getPollyTTSUrl } from "@/lib/pollyTTS";
 
 interface PronunciationButtonProps {
   pronunciation: string;
@@ -13,48 +14,27 @@ const PronunciationButton = ({
   className = "",
 }: PronunciationButtonProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
-  const speakText = (text: string) => {
-    if ("speechSynthesis" in window) {
-      // 기존 음성 정지
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = "ja-JP";
-      utterance.rate = 0.8;
-      utterance.pitch = 1;
-
-      // 일본어 voice를 명시적으로 선택
-      const voices = window.speechSynthesis.getVoices();
-      let jaVoice = voices.find(
-        (v) =>
-          (v.lang === "ja-JP" || v.lang.startsWith("ja")) &&
-          (v.name.toLowerCase().includes("female") ||
-            v.name.toLowerCase().includes("woman") ||
-            v.name.includes("女"))
-      );
-      if (!jaVoice) {
-        // fallback: 일본어 음성 중 첫 번째
-        jaVoice = voices.find(
-          (v) => v.lang === "ja-JP" || v.lang.startsWith("ja")
-        );
-      }
-      if (jaVoice) {
-        utterance.voice = jaVoice;
-      }
-
-      utterance.onstart = () => setIsPlaying(true);
-      utterance.onend = () => setIsPlaying(false);
-      utterance.onerror = () => setIsPlaying(false);
-
-      window.speechSynthesis.speak(utterance);
+  const speakText = async (text: string) => {
+    setIsPlaying(true);
+    const url = await getPollyTTSUrl(text, "ja-JP");
+    if (!url) {
+      setIsPlaying(false);
+      return;
     }
+    const audioEl = new Audio(url);
+    setAudio(audioEl);
+    audioEl.onended = () => setIsPlaying(false);
+    audioEl.onerror = () => setIsPlaying(false);
+    audioEl.play();
   };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    if (isPlaying) {
-      window.speechSynthesis.cancel();
+    if (isPlaying && audio) {
+      audio.pause();
+      audio.currentTime = 0;
       setIsPlaying(false);
     } else {
       speakText(pronunciation);
