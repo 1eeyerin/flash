@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MessageCard } from "@/constants/message";
+import PronunciationButton from "./PronunciationButton";
 
 type MessageCardComponentProps = {
   card: MessageCard;
@@ -66,8 +67,9 @@ const MessageCardComponent = ({
           <div className="text-sm text-gray-500 text-center mb-2">
             {card.kor}
           </div>
-          <div className="text-xs text-gray-400 text-center italic">
+          <div className="text-xs text-gray-400 text-center italic flex items-center justify-center gap-1">
             {card.pronunciation}
+            <PronunciationButton pronunciation={card.sentence} />
           </div>
         </div>
 
@@ -94,9 +96,12 @@ const MessageCardComponent = ({
             >
               <div className="flex flex-col">
                 <span className="font-medium text-lg">{option}</span>
-                <span className="text-sm text-gray-500 mt-1 italic">
-                  {card.optionsPronunciation[index]}
-                </span>
+                <div className="flex items-center gap-1 mt-1">
+                  <span className="text-sm text-gray-500 italic">
+                    {card.optionsPronunciation[index]}
+                  </span>
+                  <PronunciationButton pronunciation={option} />
+                </div>
               </div>
             </button>
           ))}
