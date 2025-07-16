@@ -1,14 +1,14 @@
 "use client";
 
-import FlashButtons from "@/components/FlashButtons";
 import { useFlashCard } from "@/hooks/useFlashCard";
-import FlashCardComponent from "@/components/FlashCardComponent";
 import { useParams } from "next/navigation";
 import { HIRAGANAS } from "@/constants/hiragana";
 import { KATAKANAS } from "@/constants/katakana";
 import { MENUS } from "@/constants/menu";
-import AllDoneCard from "@/components/AllDoneCard";
 import { CONFUSING } from "@/constants/confusing";
+import FlashCardComponent from "@/components/play/FlashCardComponent";
+import FlashButtons from "@/components/play/FlashButtons";
+import AllDoneCard from "@/components/AllDoneCard";
 
 const FlashCardPage = () => {
   const params = useParams();
