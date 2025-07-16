@@ -134,7 +134,9 @@ const MessageCardComponent = ({
               }`}
             >
               <div className="flex flex-col">
-                <span className="font-medium text-lg">{option.value}</span>
+                <span className="font-medium text-lg text-gray-900">
+                  {option.value}
+                </span>
                 <div className="flex items-center gap-1 mt-1">
                   <span className="text-sm text-gray-500 italic">
                     {option.pronunciation}

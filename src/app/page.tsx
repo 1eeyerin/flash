@@ -16,7 +16,7 @@ export default function HiraganaFlashCardPage() {
             <Link
               href={menu.url}
               key={menu.url}
-              className="w-[220px] py-4 bg-white rounded-2xl shadow-xl flex items-center justify-center text-md font-bold cursor-pointer select-none relative transition-colors duration-200 border border-[#e5e5e5]"
+              className="w-[220px] py-4 bg-white text-gray-900 rounded-2xl shadow-xl flex items-center justify-center text-md font-bold cursor-pointer select-none relative transition-colors duration-200 border border-[#e5e5e5]"
             >
               {menu.kor}
               {isLast && (
