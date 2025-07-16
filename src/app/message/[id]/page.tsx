@@ -14,10 +14,10 @@ const MessagePage = () => {
 
   const data = MESSAGE_CARDS;
 
-  const { card, next, progress, total } = useMessageCard(data);
+  const { card, next, progress, total, currentIndex } = useMessageCard(data);
   const category = MENUS.find(({ type }) => id === type);
 
-  const isAllDone = total === 0;
+  const isAllDone = currentIndex >= total;
 
   const handleNext = () => {
     next();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { MessageCard } from "@/constants/message";
 import PronunciationButton from "./PronunciationButton";
 
@@ -19,6 +19,7 @@ const MessageCardComponent = ({
 }: MessageCardComponentProps) => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const prevIsCorrect = useRef<boolean | null>(null);
 
   const handleOptionClick = (idx: number) => {
     setSelectedIdx(idx);
@@ -41,6 +42,21 @@ const MessageCardComponent = ({
     setSelectedIdx(null);
     setIsCorrect(null);
   }, [card]);
+
+  useEffect(() => {
+    if (!prevIsCorrect.current && isCorrect) {
+      // 정답을 맞춘 순간에만 소리 재생
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new window.SpeechSynthesisUtterance(card.correct);
+        utterance.lang = "ja-JP";
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+    prevIsCorrect.current = isCorrect;
+  }, [isCorrect, card.correct]);
 
   return (
     <div className="w-full max-w-md mx-auto">
@@ -103,10 +119,10 @@ const MessageCardComponent = ({
         {isCorrect && (
           <button
             onClick={onNext}
-            disabled={progress >= total}
-            className="w-full px-4 py-3 mt-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            // disabled={progress >= total}  // 이 줄을 제거하거나 false로!
+            className="w-full px-4 py-3 mt-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors"
           >
-            다음 문제
+            {progress === total ? "완료" : "다음 문제"}
           </button>
         )}
       </div>

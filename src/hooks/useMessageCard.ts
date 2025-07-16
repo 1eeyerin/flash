@@ -29,6 +29,9 @@ export const useMessageCard = (data: MessageCard[]) => {
   const next = useCallback(() => {
     if (currentIndex < (shuffledData.length || data.length) - 1) {
       setCurrentIndex((prev) => prev + 1);
+    } else {
+      // 마지막 문제에서 next를 누르면 currentIndex를 total로 올림
+      setCurrentIndex(shuffledData.length || data.length);
     }
   }, [currentIndex, shuffledData.length, data.length]);
 
