@@ -311,4 +311,32 @@ export const MESSAGE_CARDS: MessageCard[] = [
     kor: "근데 어렵네요...",
     pronunciation: "Kedo, ___ desu ne",
   },
+  {
+    id: 23,
+    sentence: "じゃあ、俺ら___ってこと？",
+    blank: "___",
+    blankKor: "데이트",
+    options: [
+      { value: "デート", pronunciation: "deeto", kor: "데이트" },
+      { value: "テスト", pronunciation: "tesuto", kor: "시험" },
+      { value: "ゲーム", pronunciation: "geemu", kor: "게임" },
+    ],
+    correct: "デート",
+    kor: "그럼 우리 데이트인 거야?",
+    pronunciation: "Jaa, orera ___ tte koto?",
+  },
+  {
+    id: 24,
+    sentence: "なら手___…",
+    blank: "___",
+    blankKor: "잡다",
+    options: [
+      { value: "繋がる", pronunciation: "tsunagaru", kor: "이어지다/잡다" },
+      { value: "洗う", pronunciation: "arau", kor: "씻다" },
+      { value: "切る", pronunciation: "kiru", kor: "자르다" },
+    ],
+    correct: "繋がる",
+    kor: "그럼 손 잡을까?",
+    pronunciation: "Nara te ___ ...",
+  },
 ];
