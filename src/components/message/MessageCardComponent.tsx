@@ -23,6 +23,10 @@ const MessageCardComponent = ({
   const prevIsCorrect = useRef<boolean | null>(null);
 
   const handleOptionClick = (idx: number) => {
+    if (isCorrect) {
+      return;
+    }
+
     setSelectedIdx(idx);
     const correct = card.options[idx].value === card.correct;
     setIsCorrect(correct);
@@ -89,11 +93,10 @@ const MessageCardComponent = ({
         {/* 선택지 */}
         <div className="space-y-3">
           {card.options.map((option, idx) => (
-            <button
+            <div
               key={option.value}
               onClick={() => handleOptionClick(idx)}
-              disabled={isCorrect === true}
-              className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+              className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left cursor-pointer ${
                 selectedIdx === null
                   ? "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                   : selectedIdx === idx
@@ -122,7 +125,7 @@ const MessageCardComponent = ({
                   </div>
                 )}
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
