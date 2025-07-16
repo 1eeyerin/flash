@@ -52,6 +52,7 @@ const MessageCardComponent = ({
 
   useEffect(() => {
     setSelectedAnswer(null);
+    setIsCorrect(null);
   }, [card]);
 
   return (

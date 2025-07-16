@@ -19,10 +19,6 @@ const MessagePage = () => {
 
   const isAllDone = total === 0;
 
-  const handleAnswerSelected = () => {
-    // 답변 선택 완료
-  };
-
   const handleNext = () => {
     next();
   };
@@ -38,7 +34,6 @@ const MessagePage = () => {
         <>
           <MessageCardComponent
             card={card}
-            onAnswerSelected={handleAnswerSelected}
             onNext={handleNext}
             progress={progress}
             total={total}
