@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { MessageCard } from "@/constants/message";
+import type { MessageCard } from "@/constants/message";
 
 export const useMessageCard = (data: MessageCard[]) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -7,22 +7,12 @@ export const useMessageCard = (data: MessageCard[]) => {
 
   // 선택지 셔플 함수
   const shuffleOptions = useCallback((card: MessageCard): MessageCard => {
-    const { options, optionsPronunciation } = card;
-
-    // 선택지와 발음을 함께 셔플하기 위해 인덱스 배열 생성
-    const indices = Array.from({ length: options.length }, (_, i) => i);
-    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
-
-    // 셔플된 선택지와 발음 생성
-    const shuffledOptions = shuffledIndices.map((i) => options[i]);
-    const shuffledOptionsPronunciation = shuffledIndices.map(
-      (i) => optionsPronunciation[i]
-    );
-
+    const { options } = card;
+    // 선택지 셔플
+    const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
     return {
       ...card,
       options: shuffledOptions,
-      optionsPronunciation: shuffledOptionsPronunciation,
     };
   }, []);
 

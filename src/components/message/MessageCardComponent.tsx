@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MessageCard } from "@/constants/message";
+import type { MessageCard } from "@/constants/message";
 import PronunciationButton from "./PronunciationButton";
 
 type MessageCardComponentProps = {
@@ -17,27 +17,13 @@ const MessageCardComponent = ({
   progress,
   total,
 }: MessageCardComponentProps) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-  const handleOptionClick = (option: string) => {
-    //if (selectedAnswer !== null) return; // 이미 답을 선택했으면 무시
-
-    setSelectedAnswer(option);
-    const correct = option === card.correct;
+  const handleOptionClick = (idx: number) => {
+    setSelectedIdx(idx);
+    const correct = card.options[idx].value === card.correct;
     setIsCorrect(correct);
-
-    // if (correct) {
-    //   setTimeout(() => {
-    //     setShowAnswer(true);
-    //     onAnswerSelected();
-    //   }, 1000);
-    // } else {
-    //   setTimeout(() => {
-    //     setShowAnswer(true);
-    //     onAnswerSelected();
-    //   }, 2000);
-    // }
   };
 
   const renderSentence = () => {
@@ -52,7 +38,7 @@ const MessageCardComponent = ({
   };
 
   useEffect(() => {
-    setSelectedAnswer(null);
+    setSelectedIdx(null);
     setIsCorrect(null);
   }, [card]);
 
@@ -75,19 +61,19 @@ const MessageCardComponent = ({
 
         {/* 선택지 */}
         <div className="space-y-3">
-          {card.options.map((option, index) => (
+          {card.options.map((option, idx) => (
             <button
-              key={index}
-              onClick={() => handleOptionClick(option)}
-              disabled={!!isCorrect}
+              key={option.value}
+              onClick={() => handleOptionClick(idx)}
+              disabled={isCorrect === true}
               className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
-                selectedAnswer === null
+                selectedIdx === null
                   ? "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
-                  : selectedAnswer === option
-                  ? option === card.correct
+                  : selectedIdx === idx
+                  ? option.value === card.correct
                     ? "border-green-500 bg-green-50 text-green-700"
                     : "border-red-500 bg-red-50 text-red-700"
-                  : isCorrect && option === card.correct
+                  : isCorrect && option.value === card.correct
                   ? "border-green-500 bg-green-50 text-green-700"
                   : isCorrect
                   ? "border-gray-200 bg-gray-50 text-gray-500"
@@ -95,13 +81,19 @@ const MessageCardComponent = ({
               }`}
             >
               <div className="flex flex-col">
-                <span className="font-medium text-lg">{option}</span>
+                <span className="font-medium text-lg">{option.value}</span>
                 <div className="flex items-center gap-1 mt-1">
                   <span className="text-sm text-gray-500 italic">
-                    {card.optionsPronunciation[index]}
+                    {option.pronunciation}
                   </span>
-                  <PronunciationButton pronunciation={option} />
+                  <PronunciationButton pronunciation={option.value} />
                 </div>
+                {/* 선택 시 한글 뜻 노출 */}
+                {selectedIdx === idx && (
+                  <div className="mt-2 text-gray-500 font-semibold text-xs">
+                    {option.kor}
+                  </div>
+                )}
               </div>
             </button>
           ))}
