@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import type { MessageCard } from "@/constants/message";
 import PronunciationButton from "./PronunciationButton";
+import { getPollyTTSUrl } from "@/lib/pollyTTS";
 
 type MessageCardComponentProps = {
   card: MessageCard;
@@ -58,15 +59,12 @@ const MessageCardComponent = ({
 
   useEffect(() => {
     if (!prevIsCorrect.current && isCorrect) {
-      // 정답을 맞춘 순간에만 소리 재생
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new window.SpeechSynthesisUtterance(card.correct);
-        utterance.lang = "ja-JP";
-        utterance.rate = 0.8;
-        utterance.pitch = 1;
-        window.speechSynthesis.speak(utterance);
-      }
+      // 정답을 맞춘 순간에만 소리 재생 (Amazon Polly)
+      (async () => {
+        const url = await getPollyTTSUrl(card.correct, "ja-JP");
+        if (!url) return;
+        new Audio(url).play();
+      })();
     }
     prevIsCorrect.current = isCorrect;
   }, [isCorrect, card.correct]);
